@@ -28,17 +28,19 @@ It handles HTTP requests using **Java 21 Virtual Threads (Project Loom)**, allow
 
 The system follows a simplified flow of a standard Application Server:
 
+```text
 ```mermaid
 graph LR
-    A[Client / Browser] -- HTTP Request --> B(ServerSocket Listener)
-    B -- Spawns --> C{Virtual Thread}
-    C -- Parses Request --> D[Front Controller / Dispatcher]
-    D -- Routes to --> E[UserController]
-    E -- Fetches Data --> F[(In-Memory DB)]
+    A["Client / Browser"] -- HTTP Request --> B("ServerSocket Listener")
+    B -- Spawns --> C{"Virtual Thread"}
+    C -- Parses Request --> D["Front Controller / Dispatcher"]
+    D -- Routes to --> E["UserController"]
+    E -- Fetches Data --> F[("In-Memory DB")]
     F -- Returns POJO --> E
-    E -- Uses Reflection --> G[JsonUtil Serializer]
+    E -- Uses Reflection --> G["JsonUtil Serializer"]
     G -- JSON String --> D
-    D -- HTTP Response --> A
+    D -- HTTP Response --> A```
+    
 💻 Code Example
 1. The Router (Dispatcher)
 Using functional interfaces to map URLs to business logic:
